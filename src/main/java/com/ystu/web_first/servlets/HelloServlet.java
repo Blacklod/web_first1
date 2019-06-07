@@ -27,6 +27,6 @@ public class HelloServlet extends HttpServlet {
         List list = context.getBean(List.class);
         req.setAttribute("list", list);
 
-        req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/jsp/index.html").forward(req, resp);
     }
 }

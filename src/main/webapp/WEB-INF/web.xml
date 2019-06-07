@@ -14,4 +14,22 @@
     <url-pattern>/hello</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>add</servlet-name>
+    <servlet-class>com.ystu.web_first.servlets.AddServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>add</servlet-name>
+    <url-pattern>/add</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>list</servlet-name>
+    <servlet-class>com.ystu.web_first.servlets.ListServlet</servlet-class>
+  </servlet>
+<servlet-mapping>
+  <servlet-name>list</servlet-name>
+  <url-pattern>/list</url-pattern>
+</servlet-mapping>
+
 </web-app>
