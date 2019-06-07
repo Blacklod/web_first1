@@ -3,13 +3,12 @@ package com.ystu.web_first.entities;
 public class User {
     private String name;
     private String password;
+    private long id;
 
-    public User() {
-    }
-
-    public User(String name, String password) {
+    public User(String name, String password, Long id) {
         this.name = name;
         this.password = password;
+        this.id = id;
     }
 
     public String getName() {
@@ -28,7 +27,15 @@ public class User {
         this.password = password;
     }
 
-    @Override
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /*@Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
@@ -53,5 +60,5 @@ public class User {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
-    }
+    }*/
 }

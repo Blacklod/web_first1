@@ -10,10 +10,20 @@
     <h1>Вход!</h1>
 </div>
 
+<form method="post">
+    <label>Логин:
+        <input type="text" name="name"><br />
+    </label>
+    <label>Пароль:
+        <input type="password" name="pass"><br />
+    </label>
+    <button type="submit">Войти</button>
+</form>
+
 <div>       <!-- content -->
     <div>    <!-- buttons holder -->
-        <button onclick="location.href='/list'">List users</button>
-        <button onclick="location.href='/add'">Add user</button>
+        <button onclick="location.href='/list'">Список пользователей</button>
+        <button onclick="location.href='/add'">Регистрация</button>
     </div>
 </div>
 </body>

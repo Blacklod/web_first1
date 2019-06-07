@@ -11,7 +11,6 @@
     <title>Пользователи</title>
 </head>
 <body>
-<ul>
     <%
         List<String> names = (List<String>) request.getAttribute("userNames");
 
@@ -23,6 +22,8 @@
             out.println("</ui>");
         } else out.println("<p>There are no users yet!</p>");
     %>
-</ul>
+    <div>
+        <button onclick="location.href='/hello'">Вернуться</button>
+    </div>
 </body>
 </html>

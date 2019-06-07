@@ -11,15 +11,27 @@
     <title>Регистрация</title>
 </head>
 <body>
-<form method="post">
-    <label>Логин:
-        <input type="text" name="name"><br />
-    </label>
+<div>
+    <%
+        if (request.getAttribute("userName") != null) {
+            out.println("<p>Пользователь '" + request.getAttribute("userName") + "' добавлен!</p>");
+        }
+    %>
+    <div>
+        <form method="post">
+            <label>Логин:
+                <input type="text" name="name"><br />
+            </label>
+            <label>Пароль:
+                <input type="password" name="pass"><br />
+            </label>
+            <button type="submit">Принять</button>
+        </form>
+    </div>
+</div>
 
-    <label>Пароль:
-        <input type="password" name="pass"><br />
-    </label>
-    <button type="submit">Принять</button>
-</form>
+<div>
+    <button onclick="location.href='/hello'">Вернуться</button>
+</div>
 </body>
 </html>

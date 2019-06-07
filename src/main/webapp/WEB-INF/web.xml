@@ -32,4 +32,13 @@
   <url-pattern>/list</url-pattern>
 </servlet-mapping>
 
+    <servlet>
+        <servlet-name>shop</servlet-name>
+        <servlet-class>com.ystu.web_first.servlets.ShopServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>shop</servlet-name>
+        <url-pattern>/shop</url-pattern>
+    </servlet-mapping>
+
 </web-app>

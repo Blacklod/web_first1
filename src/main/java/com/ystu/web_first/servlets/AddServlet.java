@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class AddServlet extends HttpServlet {
+
+    long id = 2;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         //PrintWriter writer = resp.getWriter();
@@ -24,8 +27,12 @@ public class AddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String password = req.getParameter("pass");
-        User user = new User(name, password);
+        id++;
+        User user = new User(name, password, id);
         Model model = Model.getInstance();
         model.add(user);
+
+        req.setAttribute("userName", name);
+        doGet(req, resp);
     }
 }
