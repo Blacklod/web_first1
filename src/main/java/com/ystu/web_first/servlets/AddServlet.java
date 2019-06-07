@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 
 public class AddServlet extends HttpServlet {
 
-    long id = 2;
+    int id = 2;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{

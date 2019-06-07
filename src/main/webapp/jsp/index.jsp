@@ -1,48 +1,35 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="com.ystu.web_first.entities.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.ystu.web_first.servlets.HelloServlet" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" %>
 <html>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="<c:url value="/styles/main.css"/>">
+
     <body>
-        <h2>Hello World!</h2>
+    <%! private int ig = 0;%>
+    <h2>Авторизация</h2>
+    <form id=<%=ig%> name="LoginShop" method="get">
+        <p>Логин:<input type="text" name="login" /></p>
+        <p>Пароль:<input type="password" name="pass" /></p>
+        <p><input type="submit" name="submit" value="Вход" /></p>
+    </form>
 
-        <%! private int x = 0; %>
+    <br>
+    <% if (request.getAttribute("msgAut") != null) {%>
+    <% String messageAut = (String) request.getAttribute("msgAut"); %>
+    <c:set var="msgAutView" value="<%=messageAut.toString()%>"/>
+    <h3>${msgAutView}</h3>
+    <%}%>
+    <br>
 
-        Число обращений к странице: <%= ++x %>
-
-        <c:set var="myName" value="Alex"/>
-        <h1>${myName}</h1>
-
-        <c:set var="x" value="<%=x%>" />
-        <c:if test="${x < 10}">
-            <p>True<p>
-        </c:if>
-        <c:if test="${x >= 10}">
-            <p>False<p>
-        </c:if>
-
-        <br>
-            <% ((List)request.getAttribute("list")).add(new Date()); %>
-
-        <c:set var="num" scope="session" value="10"/>
-        <c:choose>
-            <c:when test="${num <= 0}">
-                Если num <= 0
-            </c:when>
-            <c:when test="${num > 1000}">
-                Если num > 1000
-            </c:when>
-            <c:otherwise>
-                Если не одно условие не есть верно.
-            </c:otherwise>
-        </c:choose>
-
-        <br>
-
-        <c:forEach var="num" items="${list}">
-            <p>${num}</p>
-        </c:forEach>
+    <div>       <!-- content -->
+        <div>    <!-- buttons holder -->
+            <button onclick="location.href='/list'">Список пользователей</button>
+            <button onclick="location.href='/add'">Регистрация</button>
+        </div>
+    </div>
     </body>
 </html>

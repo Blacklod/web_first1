@@ -19,30 +19,43 @@ import java.util.List;
  */
 public class HelloServlet extends HttpServlet {
 
-    ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfigContext.class);
+    //ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfigContext.class);
     long id = 2;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        req.setAttribute("todo", "10");
-        
-        List list = context.getBean(List.class);
-        req.setAttribute("list", list);
 
-        req.getRequestDispatcher("/jsp/index.html").forward(req, resp);
+        String name = req.getParameter("login");
+        String pass = req.getParameter("pass");
+
+        id = Model.getInstance().getIdUserByLogPas(name,pass);
+        Long id =  (Long) req.getSession().getAttribute("idUser");
+
+        if (id != null) {
+            resp.sendRedirect("hello");
+        } else {
+        if (!Model.getInstance().getLogin(name, pass)) {
+            req.getSession().setAttribute("idUser",id);
+            req.getSession().setAttribute("name",name);
+            getServletContext().getRequestDispatcher("/jsp/shop.jsp").forward(req,resp);
+        }
+        else {
+            if (name != null && pass != null){
+                req.setAttribute("msgAut","Неверный логин или пароль");
+            }
+            req.getRequestDispatcher("jsp/index.jsp").forward(req, resp);
+        }
+        //resp.setContentType("text/html");
+        //req.setAttribute("todo", "10");
+        //List list = context.getBean(List.class);
+        //req.setAttribute("list", list);
+
+        //req.getRequestDispatcher("/jsp/shop.jsp").forward(req, resp);
+                }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String password = req.getParameter("pass");
-        id++;
-        User user = new User(name, password, id);
-        Model model = Model.getInstance();
-        model.add(user);
 
-        req.setAttribute("userName", name);
-        doGet(req, resp);
     }
 }
