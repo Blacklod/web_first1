@@ -36,6 +36,12 @@ public class Model {
                 .collect(Collectors.toList());
     }
 
+    /*public List<String> list2() {
+        return cars.stream()
+                .map(Car::getName)
+                .collect(Collectors.toList());
+    }*/
+
     public  User getUserByLogPas(String log, String pass) {
         for (User us : users){
             if ((us.getName().equals(log)) && (us.getPassword().equals(pass)) ){

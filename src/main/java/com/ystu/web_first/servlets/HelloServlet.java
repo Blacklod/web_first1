@@ -45,13 +45,7 @@ public class HelloServlet extends HttpServlet {
             }
             req.getRequestDispatcher("jsp/index.jsp").forward(req, resp);
         }
-        //resp.setContentType("text/html");
-        //req.setAttribute("todo", "10");
-        //List list = context.getBean(List.class);
-        //req.setAttribute("list", list);
-
-        //req.getRequestDispatcher("/jsp/shop.jsp").forward(req, resp);
-                }
+        }
     }
 
     @Override

@@ -1,7 +1,12 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.ystu.web_first.entities.Car" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.ystu.web_first.model.Model" %><%--
+<%@ page import="com.ystu.web_first.model.Model" %>
+<%@ page import="com.ystu.web_first.entities.*" %>
+<%@ page import="com.ystu.web_first.Main" %>
+<%@ page import="com.ystu.web_first.servlets.ShopServlet" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %><%--
   Created by IntelliJ IDEA.
   User: Admin
   Date: 08.06.2019
@@ -17,11 +22,11 @@
 <%! private int ig = 0;%>
 <%! private int g = 0;%>
 <%! private List<Long> CarOrd;%>
+<%! private List<Long> CarList;%>
 
 <% String name = (String) request.getSession().getAttribute("userName"); %>
 <c:set var="myName" value="<%=name.toString()%>"/>
-<h2>Пользователь: </h2>
-<h3>${myName}</h3>
+<h2>Пользователь: ${myName}</h2>
 
 <%! ArrayList<Car> carsView = new ArrayList<Car>();%>
 <%carsView = Model.getInstance().getCars();%>
@@ -32,11 +37,8 @@
 <% request.setAttribute("list", new ArrayList());%>
 <%}%>
 
-
-
-<% for (int i=1; i<=g; i++) {%>
-<% ((List)request.getAttribute("list")).add (Model.getInstance().getCarById(i)); %>
-<%}%>
+<% for (long i=1; i<=carsView.size(); i++) {%>
+<% ((List)request.getAttribute("list")).add (Model.getInstance().getCarById(i));}%>
 
 <table>
     <col width="170" valign="top">
@@ -53,31 +55,30 @@
         <th>Цена</th>
         <th>Купить</th>
     </tr>
-    <c:forEach items="${list}" var="item">
-        <% ++ig; %>
+    <%for (int j1=1; j1<=carsView.size(); j1++){%>
         <tr>
             <td align="center">
-                    ${item.name}
+                <%=Model.getInstance().getCarById(j1).getName()%>
             </td>
             <td align="center">
-                    ${item.color}
+                <%=Model.getInstance().getCarById(j1).getColor()%>
             </td>
             <td align="center">
-                    ${item.engine}
-            </td>
-            </td>
-            <td align="center">
-                    ${item.type}
+                <%=Model.getInstance().getCarById(j1).getEngine()%>
             </td>
             <td align="center">
-                    ${item.price}
+                <%=Model.getInstance().getCarById(j1).getKp()%>
+            </td>
             <td align="center">
-                <form id=<%=ig%> name="BuyButton" method="post" action="/shop">
-                    <input id="btn" type="submit" value=<%=ig%> name="button";/>
+                <%=Model.getInstance().getCarById(j1).getPrice()%>
+            </td>
+            <td align="center">
+                <form id=<%=j1%> name="BuyButton" method="post" action="/shop">
+                    <input id="btn" type="submit" value=<%=j1%> name="button";/>
                 </form>
             </td>
         </tr>
-    </c:forEach>
+    <%}%>
 </table>
 
 <%((List)request.getAttribute("list")).clear(); %>

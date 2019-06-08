@@ -18,7 +18,7 @@ import java.util.List;
 public class ShopServlet extends HttpServlet {
     ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfigContext.class);
     List<Long> ArrayIdCar = new ArrayList<Long>();
-    boolean ref = false;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List list = context.getBean(List.class);
@@ -27,16 +27,16 @@ public class ShopServlet extends HttpServlet {
         Long id =  (Long) req.getSession().getAttribute("idUser");
 
         if (id == null) {
-            resp.sendRedirect("hello");
+            resp.sendRedirect("/hello");
         }
         else {
             ArrayList<Order> or = new ArrayList<Order>();
-            if (req.getSession().getAttribute("ArrayIdCar") == null){
+            if (req.getSession().getAttribute("ArrayIdCar2") == null){
                 req.getRequestDispatcher("/jsp/shop.jsp").forward(req, resp);
             }
             else{
-                List<Long> KorzAdd=  (List) req.getSession().getAttribute("ArrayIdCar");
-                req.getSession().setAttribute("ArrayIdCar",KorzAdd);
+                List<Long> KorzAdd=  (List) req.getSession().getAttribute("ArrayIdCar2");
+                req.getSession().setAttribute("ArrayIdCar2",KorzAdd);
                 long id2 = id;
                 or.add(new Order(1,id2,KorzAdd));
                 Model.getInstance().setOrders(or);
@@ -49,6 +49,7 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        //resp.sendRedirect("/shop");
         List list = context.getBean(List.class);
         req.setAttribute("list", list);
 
@@ -62,38 +63,34 @@ public class ShopServlet extends HttpServlet {
 
             Korz = Model.getInstance().getOrderByUser(id).getCars();
 
-            if (req.getSession().getAttribute("ArrayIdCar") == null && Korz.size()==0){
+            if (req.getSession().getAttribute("ArrayIdCar2") == null && Korz.size()==0){
                 List<Long> KorzPust = new ArrayList<Long>();
                 String name = req.getParameter("button");
                 KorzPust.add(Long.parseLong(name));
-                req.getSession().setAttribute("ArrayIdCar",KorzPust);
+                req.getSession().setAttribute("ArrayIdCar2",KorzPust);
                 Korz = KorzPust;
             }
             else{
-                if (req.getSession().getAttribute("ArrayIdCar") == null) {
+                if (req.getSession().getAttribute("ArrayIdCar2") == null) {
                     List<Long> KorzAdd=Korz;
                     String name = req.getParameter("button");
                     KorzAdd.add(Long.parseLong(name));
-                    req.getSession().setAttribute("ArrayIdCar",KorzAdd);
+                    req.getSession().setAttribute("ArrayIdCar2",KorzAdd);
                     Korz = KorzAdd;
                 }
                 else{
                     List<Long> KorzAdd=  (List) req.getSession().getAttribute("ArrayIdCar2");
                     String name = req.getParameter("button");
                     KorzAdd.add(Long.parseLong(name));
-                    req.getSession().setAttribute("ArrayIdCar",KorzAdd);
+                    req.getSession().setAttribute("ArrayIdCar2",KorzAdd);
                     Korz = KorzAdd;
                 }
             }
 
             or.add(new Order(1,id2,Korz));
             Model.getInstance().setOrders(or);
-            req.getRequestDispatcher("jsp/shop.jsp").forward(req, resp);
-            ref = true;
-        /*}
-        else {
-            ref = false;
-            doGet(req,resp);
-        }*/
+            resp.sendRedirect("/shop");
+            //req.getRequestDispatcher("jsp/shop.jsp").forward(req, resp);
+
     }
 }
