@@ -3,9 +3,9 @@ package com.ystu.web_first.entities;
 public class User {
     private String name;
     private String password;
-    private long id;
+    private Long id;
 
-    public User(String name, String password, int id) {
+    public User(String name, String password, Long id) {
         this.name = name;
         this.password = password;
         this.id = id;
@@ -27,11 +27,11 @@ public class User {
         this.password = password;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

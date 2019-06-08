@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 
 public class AddServlet extends HttpServlet {
 
-    int id = 2;
+    Long id = null;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
@@ -27,12 +27,15 @@ public class AddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String password = req.getParameter("pass");
+        long id = Model.getInstance().getSizeCustomers();
+
         id++;
         User user = new User(name, password, id);
         Model model = Model.getInstance();
         model.add(user);
 
         req.setAttribute("userName", name);
+        req.setAttribute("idUser", id);
         doGet(req, resp);
     }
 }

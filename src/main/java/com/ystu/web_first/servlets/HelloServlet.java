@@ -20,7 +20,7 @@ import java.util.List;
 public class HelloServlet extends HttpServlet {
 
     //ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfigContext.class);
-    long id = 2;
+    Long idUs = null;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,15 +28,15 @@ public class HelloServlet extends HttpServlet {
         String name = req.getParameter("login");
         String pass = req.getParameter("pass");
 
-        id = Model.getInstance().getIdUserByLogPas(name,pass);
+        idUs = Model.getInstance().getIdUserByLogPas(name,pass);
         Long id =  (Long) req.getSession().getAttribute("idUser");
 
         if (id != null) {
             resp.sendRedirect("hello");
         } else {
         if (!Model.getInstance().getLogin(name, pass)) {
-            req.getSession().setAttribute("idUser",id);
-            req.getSession().setAttribute("name",name);
+            req.getSession().setAttribute("idUser",idUs);
+            req.getSession().setAttribute("userName",name);
             getServletContext().getRequestDispatcher("/jsp/shop.jsp").forward(req,resp);
         }
         else {

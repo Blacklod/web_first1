@@ -46,13 +46,13 @@ public class Model {
     }
 
     //получить id покупателя по логину и паролю
-    public  long getIdUserByLogPas(String log, String pass) {
+    public Long getIdUserByLogPas(String log, String pass) {
         for (User us : users){
             if ((us.getName().equals(log)) && (us.getPassword().equals(pass)) ){
                 return us.getId();
             }
         }
-        return 0;
+        return null;
     }
 
     //проверка на правильность логина и пароля
@@ -94,8 +94,13 @@ public class Model {
         return new Order();
     }
 
+    public int getSizeCustomers()
+    {
+        return users.size();
+    }
+
     //получить заказ по id прользователя
-    public  Order getOrderByCustomer(long idUser) {
+    public  Order getOrderByUser(long idUser) {
         for (Order or : orders){
             if (or.getUser_id() == idUser){
                 return or;
@@ -106,8 +111,8 @@ public class Model {
 
     public void initData()
     {
-        users.add(new User("Klod","456", 1));
-        users.add(new User("Alex","1234", 2));
+        users.add(new User("Klod","456", (long) 1));
+        users.add(new User("Alex","1234", (long) 2));
 
         cars.add(new Car(1,"VW Polo","Silver","1.6 X 110", "Механика", 670000));
         cars.add(new Car(2,"VW Touareg","White","3.0 X 270", "Робот", 2500000));
